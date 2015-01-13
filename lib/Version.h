@@ -10,6 +10,6 @@ public:
 	Version(const string&);
 private:
 	vector<int> versionNumbers;
-	vector<wchar_t> seperators;
+	vector<string> seperators;
 };
 

@@ -1,6 +1,8 @@
 #include "Version.h"
 #include "NotImplementedException.h"
 #include <regex>
+#include <sstream>
+
 using namespace std;
 Version::Version()
 {
@@ -23,11 +25,13 @@ Version::Version(const string &versionString)
 	//find the number of digits
 	for (nrOfDigits = 0; regex_search(versionString, regex(regexString + regexBuilderString)); ++nrOfDigits)
 		regexString += regexBuilderString;
+	smatch versionMatch;
+	regex_search(versionString, versionMatch, regex(regexString));
+	int versionRegexMatches = distance(versionMatch.begin(), versionMatch.end());
+	for (auto index = 1; index < versionMatch.size(); index+=2)
+		versionNumbers.push_back(stoi(versionMatch[index]));
 	
-	auto digits_regex = regex(digitsString + seperatorString);
-	auto digit_finder = sregex_iterator(versionString.begin(), versionString.end(), digits_regex);
-	auto digit_end = sregex_iterator();
-	int matches = distance(digit_finder, digit_end);
-
-	throw(BaseExceptions::NotImplementedException(__FILE__, __LINE__));
+	for (auto index = 2; index < versionMatch.size(); index += 2)
+		seperators.push_back(versionMatch[index]);
+	//throw(BaseExceptions::NotImplementedException(__FILE__, __LINE__));
 }
