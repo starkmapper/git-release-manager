@@ -21,9 +21,6 @@
     <ClCompile Include="FileLineException.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="NotImplementedException.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Version.h">
