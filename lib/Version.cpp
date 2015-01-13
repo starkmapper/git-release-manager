@@ -14,13 +14,14 @@ Version::Version(const string &versionString)
 {
 	// Find one or more digits with 0 or more trailing characters
 	// Concatenating this string finds anything in the form of 1 1.2.3 or even 1,2.3.27-2a0123[12
-	string digitsString("([[:digit:]]+)(.*)");
+	string digitsString = "([[:digit:]]+)";
+	string seperatorString = "(.{1})";
 	string regexString = digitsString;
 	regex versionRegex(regexString);
 	int nrOfDigits;
 	//find the number of digits
 	for (nrOfDigits = 0; regex_search(versionString, regex(regexString)); ++nrOfDigits)
-		regexString += digitsString;
+		regexString += seperatorString+digitsString;
 	
 	throw(BaseExceptions::NotImplementedException(__FILE__, __LINE__));
 }
