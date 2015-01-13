@@ -11,5 +11,7 @@ public:
 private:
 	vector<int> versionNumbers;
 	vector<string> seperators;
+	string prefix;
+	string suffix;
 };
 

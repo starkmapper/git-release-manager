@@ -33,5 +33,8 @@ Version::Version(const string &versionString)
 	
 	for (auto index = 2; index < versionMatch.size(); index += 2)
 		seperators.push_back(versionMatch[index]);
+	suffix = versionMatch.suffix().str();
+	prefix = versionMatch.prefix().str();
+
 	//throw(BaseExceptions::NotImplementedException(__FILE__, __LINE__));
 }
