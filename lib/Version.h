@@ -13,5 +13,9 @@ private:
 	vector<string> seperators;
 	string prefix;
 	string suffix;
+public:
+	// Comparison operators compare versionNumber values only!
+	friend bool operator==(const Version& Left, const Version& Right);
+	friend bool operator!=(const Version& Left, const Version& Right);
 };
 
