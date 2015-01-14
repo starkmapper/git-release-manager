@@ -65,14 +65,23 @@ Possible future features (not necessarily in the scope of this project)
 ---------------------
 - Testing/beta/RC/stable release staging branch handling could be added, but I don't care for it. Could be a separate tool though.
 
+Why the hell are you branching the crap out of this repo?
+--------------------------------------------------
+To be able to use it as a test repo for this tool
+It will get worse... Much, much worse...
+
+
+Implemented
+---------------------
+- Version objects with:
+  - proper conversion/construction semantics
+    - (vector of) integers
+    - randomly formatted version string with any prefix or annotation
 
 To implement
 ---------------------
 
 - Version objects with:
-  - proper conversion/construction semantics
-    - (vector of) integers
-    - randomly formatted version string with any prefix or annotation
   - means for natural sorting (i.e. 1.2 < 1.2.1 and 1.20 > 1.2.1)
     - Convert version to one big int for easy sorting OR provide custom sorting semantics (comparison operators)
 - read version tags/branches 
