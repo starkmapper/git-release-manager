@@ -46,6 +46,6 @@ bool operator==(const Version& Left, const Version& Right)
 
 bool operator!=(const Version& Left, const Version& Right)
 {
-	return Left.versionNumbers == Right.versionNumbers;
+	return Left.versionNumbers != Right.versionNumbers;
 }
 
