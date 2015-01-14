@@ -1,7 +1,7 @@
 #include "VersionTests.h"
 #include "Version.h"
 #include "FileLineException.h"
-#define THROW_IF_UNEQUAL(A,B) if (A!=B) throw(BaseExceptions::FileLineException("Test failed@",__FILE__,__LINE__))
+#define THROW_IF_UNEQUAL(A,B) if (A!=B) throw(BaseExceptions::FileLineException("VersionTest failed",__FILE__,__LINE__))
 
 VersionTests::VersionTests()
 {
