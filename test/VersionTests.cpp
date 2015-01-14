@@ -22,7 +22,7 @@ VersionTests::VersionTests()
 	THROW_IF_UNEQUAL(prefixed,prefixedString);
 	
 	Version postfixed{ 1, 2, 3 };
-	Version postfixedString{ "1.2.3.4-killmenow" };
+	Version postfixedString{ "1.2.3-killmenow" };
 	THROW_IF_UNEQUAL(postfixed,postfixedString);
 	
 	Version gitDescribe{ 1, 2, 3 , 123 };
