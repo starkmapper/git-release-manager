@@ -25,7 +25,7 @@ VersionTests::VersionTests()
 	Version postfixedString{ "1.2.3-killmenow" };
 	THROW_IF_UNEQUAL(postfixed,postfixedString);
 	
-	Version gitDescribe{ 1, 2, 3 , 123 };
+	Version gitDescribe{ 1, 2, 3 ,4, 123 };
 	Version gitDescribeString{ "1.2.3.4-123-ac1337ff" };
 	THROW_IF_UNEQUAL(gitDescribe,gitDescribeString);
 }
