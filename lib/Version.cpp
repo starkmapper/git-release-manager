@@ -10,7 +10,12 @@ Version::Version()
 Version::Version(initializer_list<int> Args)
 {
 	for (int versionPart : Args)
+	{
 		versionNumbers.push_back(versionPart);
+		seperators.push_back(".");
+	}
+	
+	
 }
 Version::Version(const string &versionString)
 {
