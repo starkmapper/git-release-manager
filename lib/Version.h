@@ -9,6 +9,7 @@ public:
 	Version(initializer_list<int>);
 	Version(const string&);
 private:
+	void normalizeVersionNumber();
 	vector<int> versionNumbers;
 	vector<string> seperators;
 	string prefix;

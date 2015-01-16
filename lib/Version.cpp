@@ -15,6 +15,7 @@ Version::Version(initializer_list<int> Args)
 		versionNumbers.push_back(versionPart);
 		seperators.push_back(".");
 	}
+	normalizeVersionNumber();
 	
 	
 }
@@ -58,7 +59,13 @@ Version::Version(const string &versionString)
 	{ 
 		throw(RethrownVersionException(e.what()));
 	}
-
+	normalizeVersionNumber();
+}
+void Version::normalizeVersionNumber()
+{
+	//remove trailing zero's, allow only single 0 as version number
+	while ( versionNumbers.size() > 1 && versionNumbers.back() == 0)
+		versionNumbers.pop_back();
 }
 
 bool operator==(const Version& Left, const Version& Right)
