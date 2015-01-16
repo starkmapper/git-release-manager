@@ -19,3 +19,4 @@ namespace BaseExceptions
 	};
 
 };
+#define FileLineExceptionMessage(A) BaseExceptions::FileLineException(A, __FILE__, __LINE__)
