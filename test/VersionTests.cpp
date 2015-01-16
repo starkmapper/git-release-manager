@@ -4,12 +4,26 @@
 #include <vector>
 #include <algorithm>
 #include <functional>
+#define THROW_IF_EQUAL(A,B) if (A==B) throw(BaseExceptions::FileLineException("VersionTest failed",__FILE__,__LINE__))
 #define THROW_IF_UNEQUAL(A,B) if (A!=B) throw(BaseExceptions::FileLineException("VersionTest failed",__FILE__,__LINE__))
+#define THROW_IF_NOTEQUAL(A,B) if (!(A==B)) throw(BaseExceptions::FileLineException("VersionTest failed",__FILE__,__LINE__))
 
 VersionTests::VersionTests()
 {
+	TestEquals();
 	TestConstructor();
 	TestGreaterLess();
+}
+void VersionTests::TestEquals()
+{
+	Version One{ 1 };
+	Version OneZero{ 1 , 0};
+	THROW_IF_NOTEQUAL(One, One);
+	THROW_IF_NOTEQUAL(One, OneZero);
+		
+	Version Two{ 2 };
+	THROW_IF_EQUAL(One, Two);
+
 }
 void VersionTests::TestConstructor()
 {
