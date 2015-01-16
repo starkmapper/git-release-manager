@@ -1,8 +1,9 @@
 #include "Version.h"
-#include "NotImplementedException.h"
+#include "FileLineException.h"
 #include <regex>
 #include <sstream>
-
+#define VersionException BaseExceptions::FileLineException("Illegal version string: "+versionString,__FILE__, __LINE__)
+#define RethrownVersionException(M) BaseExceptions::FileLineException(M+versionString,__FILE__, __LINE__)
 using namespace std;
 Version::Version()
 {
@@ -10,7 +11,13 @@ Version::Version()
 Version::Version(initializer_list<int> Args)
 {
 	for (int versionPart : Args)
+	{
 		versionNumbers.push_back(versionPart);
+		seperators.push_back(".");
+	}
+	normalizeVersionNumber();
+	
+	
 }
 Version::Version(const string &versionString)
 {
@@ -25,18 +32,40 @@ Version::Version(const string &versionString)
 	//find the number of digits
 	for (nrOfDigits = 0; regex_search(versionString, regex(regexString + regexBuilderString)); ++nrOfDigits)
 		regexString += regexBuilderString;
-	smatch versionMatch;
-	regex_search(versionString, versionMatch, regex(regexString));
-	int versionRegexMatches = distance(versionMatch.begin(), versionMatch.end());
-	for (auto index = 1; index < versionMatch.size(); index+=2)
-		versionNumbers.push_back(stoi(versionMatch[index]));
-	
-	for (auto index = 2; index < versionMatch.size(); index += 2)
-		seperators.push_back(versionMatch[index]);
-	suffix = versionMatch.suffix().str();
-	prefix = versionMatch.prefix().str();
 
-	//throw(BaseExceptions::NotImplementedException(__FILE__, __LINE__));
+	smatch versionMatch;
+	try
+	{
+		if (regex_search(versionString, versionMatch, regex(regexString)))
+		{
+			// First result it the entire matched string
+			smatch::iterator versionResult = versionMatch.begin() + 1;
+			while (versionResult != versionMatch.end())
+			{
+				versionNumbers.push_back(stoi(*versionResult));
+				versionResult++;
+				seperators.push_back(*versionResult);
+				versionResult++;
+			}
+			suffix = versionMatch.suffix().str();
+			prefix = versionMatch.prefix().str();
+		}
+		else
+		{
+			throw(VersionException);
+		}
+	}
+	catch (exception &e)
+	{ 
+		throw(RethrownVersionException(e.what()));
+	}
+	normalizeVersionNumber();
+}
+void Version::normalizeVersionNumber()
+{
+	//remove trailing zero's, allow only single 0 as version number
+	while ( versionNumbers.size() > 1 && versionNumbers.back() == 0)
+		versionNumbers.pop_back();
 }
 
 bool operator==(const Version& Left, const Version& Right)
@@ -49,3 +78,19 @@ bool operator!=(const Version& Left, const Version& Right)
 	return Left.versionNumbers != Right.versionNumbers;
 }
 
+bool operator>(const Version& Left, const Version& Right)
+{
+	return Left.versionNumbers > Right.versionNumbers;
+}
+bool operator>=(const Version& Left, const Version& Right)
+{
+	return Left.versionNumbers > Right.versionNumbers;
+}
+bool operator<(const Version& Left, const Version& Right)
+{
+	return Left.versionNumbers < Right.versionNumbers;	
+}
+bool operator<=(const Version& Left, const Version& Right)
+{
+	return Left.versionNumbers < Right.versionNumbers;
+}

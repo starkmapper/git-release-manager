@@ -9,6 +9,7 @@ public:
 	Version(initializer_list<int>);
 	Version(const string&);
 private:
+	void normalizeVersionNumber();
 	vector<int> versionNumbers;
 	vector<string> seperators;
 	string prefix;
@@ -17,5 +18,9 @@ public:
 	// Comparison operators compare versionNumber values only!
 	friend bool operator==(const Version& Left, const Version& Right);
 	friend bool operator!=(const Version& Left, const Version& Right);
+	friend bool operator>(const Version& Left, const Version& Right);
+	friend bool operator>=(const Version& Left, const Version& Right);
+	friend bool operator<(const Version& Left, const Version& Right);;
+	friend bool operator<=(const Version& Left, const Version& Right);
 };
 

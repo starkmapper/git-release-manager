@@ -12,7 +12,8 @@ int main(void)
 	catch (exception &e)
 	{
 		cerr << "Test failed!" << endl << e.what()<< endl;
+		return EXIT_FAILURE;
 	}
 	
-	return 0;
+	return EXIT_SUCCESS;
 }
