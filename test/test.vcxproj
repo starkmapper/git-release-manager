@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="test.cpp" />
+    <ClCompile Include="TestGitVersionRefs.cpp" />
     <ClCompile Include="VersionTests.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -20,6 +21,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="TestGitVersionRefs.h" />
     <ClInclude Include="VersionTests.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

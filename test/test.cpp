@@ -1,6 +1,7 @@
 #include <iostream>
 #include <exception>
 #include "VersionTests.h"
+#include "TestGitVersionRefs.h"
 
 using namespace std;
 int main(void)
@@ -8,6 +9,7 @@ int main(void)
 	try
 	{
 		VersionTests TestVersions;
+		TestGitVersionRefs gitRefs;
 	}
 	catch (exception &e)
 	{

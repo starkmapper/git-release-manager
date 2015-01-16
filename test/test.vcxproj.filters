@@ -21,9 +21,15 @@
     <ClCompile Include="VersionTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TestGitVersionRefs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="VersionTests.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TestGitVersionRefs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
