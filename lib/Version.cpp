@@ -71,3 +71,19 @@ bool operator!=(const Version& Left, const Version& Right)
 	return Left.versionNumbers != Right.versionNumbers;
 }
 
+bool operator>(const Version& Left, const Version& Right)
+{
+	return Left.versionNumbers > Right.versionNumbers;
+}
+bool operator>=(const Version& Left, const Version& Right)
+{
+	return Left.versionNumbers > Right.versionNumbers;
+}
+bool operator<(const Version& Left, const Version& Right)
+{
+	return Left.versionNumbers < Right.versionNumbers;	
+}
+bool operator<=(const Version& Left, const Version& Right)
+{
+	return Left.versionNumbers < Right.versionNumbers;
+}
