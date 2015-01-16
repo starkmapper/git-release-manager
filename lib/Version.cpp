@@ -21,6 +21,9 @@ Version::Version(initializer_list<int> Args)
 }
 Version::Version(const string &versionString)
 {
+	// Don't accept empty version
+	if ( versionString.size() == 0)
+		throw(VersionException);
 	// Find one or more digits with 0 or more trailing characters
 	// Concatenating this string finds anything in the form of 1 1.2.3 or even 1,2.3.27-2a0123[12
 	string digitsString = "([[:digit:]]+)";
