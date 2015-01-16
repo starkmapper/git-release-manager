@@ -74,16 +74,14 @@ It will get worse... Much, much worse...
 Implemented
 ---------------------
 - Version objects with:
-  - proper conversion/construction semantics
-    - (vector of) integers
-    - randomly formatted version string with any prefix or annotation
+    - proper conversion/construction semantics
+        - (vector of) integers
+        - randomly formatted version string with any prefix or annotation
+        - means for natural sorting (i.e. 1.2 < 1.2.1 and 1.20 > 1.2.1)
 
 To implement
 ---------------------
 
-- Version objects with:
-  - means for natural sorting (i.e. 1.2 < 1.2.1 and 1.20 > 1.2.1)
-    - Convert version to one big int for easy sorting OR provide custom sorting semantics (comparison operators)
 - read version tags/branches 
 - call git-flow appropriately
 - detect unfinished releases/hotfixes
