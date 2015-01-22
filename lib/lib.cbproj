@@ -4,7 +4,7 @@
         <ProjectVersion>16.1</ProjectVersion>
         <FrameworkType>None</FrameworkType>
         <Base>True</Base>
-        <Config Condition="'$(Config)'==''">Debug</Config>
+        <Config Condition="'$(Config)'==''">Release</Config>
         <Platform Condition="'$(Platform)'==''">Win64</Platform>
         <TargetedPlatforms>2</TargetedPlatforms>
         <AppType>StaticLibrary</AppType>
@@ -84,6 +84,9 @@
         <CppCompile Include="FileLineException.cpp">
             <BuildOrder>1</BuildOrder>
         </CppCompile>
+        <CppCompile Include="GitVersionRefs.cpp">
+            <BuildOrder>3</BuildOrder>
+        </CppCompile>
         <None Include="NotImplementedException.h">
             <BuildOrder>2</BuildOrder>
         </None>
@@ -140,6 +143,12 @@
                 </DeployFile>
                 <DeployFile Condition="'$(DynamicRTL)'=='true'" LocalName="$(BDS)\Redist\osx32\libcgcrtl.dylib" Class="DependencyModule">
                     <Platform Name="OSX32">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName=".\Win64\Release\lib.a" Configuration="Release" Class="ProjectOutput">
+                    <Platform Name="Win64">
+                        <RemoteName>lib.a</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
