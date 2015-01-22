@@ -1,6 +1,7 @@
 #pragma once
 #include <exception>
 #include <string>
+
 namespace BaseExceptions
 {
 	using namespace std;
@@ -15,7 +16,7 @@ namespace BaseExceptions
 	public:
 		FileLineException(string message, string file, int line);
 		virtual ~FileLineException(){};
-		virtual const char* what() const;
+		virtual const char* what() const noexcept;
 	};
 
 };

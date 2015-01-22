@@ -12,7 +12,7 @@ namespace BaseExceptions
 		this->message = messageFormatter.str();
 	}
 
-	const char* FileLineException::what() const
+	const char* FileLineException::what() const noexcept
 	{
 		return message.c_str();
 	}
