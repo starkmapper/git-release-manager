@@ -27,13 +27,16 @@ Version::Version(const string &versionString)
 	// Find one or more digits with 0 or more trailing characters
 	// Concatenating this string finds anything in the form of 1 1.2.3 or even 1,2.3.27-2a0123[12
 	string digitsString = "([[:digit:]]+)";
-	string seperatorString = "([^[:digit:]]{1}|$)";
+	/* libstdc++ doesn't handle the ^ operator well (appears to turn it into match any)
+	 * string seperatorString = "([^[:digit:]]{1}|$)";
+     */
+	string seperatorString = "([\\-._+/]{1}|$)";
 	string regexBuilderString = digitsString+seperatorString;
 	string regexString;
 	int nrOfDigits;
 	
 	//find the number of digits
-	for (nrOfDigits = 0; regex_search(versionString, regex(regexString + regexBuilderString)); ++nrOfDigits)
+	for (nrOfDigits = 0; regex_search(versionString, regex(regexString + regexBuilderString), regex_constants::match_not_bol); ++nrOfDigits)
 		regexString += regexBuilderString;
 
 	smatch versionMatch;
@@ -42,8 +45,9 @@ Version::Version(const string &versionString)
 		if (regex_search(versionString, versionMatch, regex(regexString)))
 		{
 			// First result it the entire matched string
-			smatch::iterator versionResult = versionMatch.begin() + 1;
-			while (versionResult != versionMatch.end())
+			smatch::iterator versionResult = versionMatch.begin()+1;
+			
+			while (versionResult != versionMatch.end() )
 			{
 				versionNumbers.push_back(stoi(*versionResult));
 				versionResult++;
