@@ -17,7 +17,7 @@ std::ostream& operator<<(std::ostream& os, const C &c)
 	{
 		std::ostream_iterator<typename C::value_type> stream_iterator(os,"\n");
 		std::copy(c.cbegin(),c.cend()-1, stream_iterator);
-		os << *c.rend();
+		os << *c.rbegin();
 	}
 	
 	return os;
