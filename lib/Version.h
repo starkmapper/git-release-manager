@@ -11,6 +11,7 @@ public:
 	Version(const string&);
 private:
 	void normalizeVersionNumber();
+	void normalizeSeperators();
 	vector<int> versionNumbers;
 	vector<string> seperators;
 	string prefix;

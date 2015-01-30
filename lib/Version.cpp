@@ -16,7 +16,7 @@ Version::Version(initializer_list<int> Args)
 		seperators.push_back(".");
 	}
 	normalizeVersionNumber();
-	
+	normalizeSeperators();
 	
 }
 Version::Version(const string &versionString)
@@ -67,7 +67,17 @@ Version::Version(const string &versionString)
 		throw(RethrownVersionException(e.what()));
 	}
 	normalizeVersionNumber();
+	normalizeSeperators();
 }
+
+void Version::normalizeSeperators()
+{
+	// Set the last seperator to be an empty string
+	if(!seperators.empty() && versionNumbers.size() <= seperators.size())
+		seperators.pop_back();
+	seperators.push_back("");
+}
+
 void Version::normalizeVersionNumber()
 {
 	//remove trailing zero's, allow only single 0 as version number
