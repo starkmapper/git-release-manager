@@ -101,3 +101,13 @@ bool operator<=(const Version& Left, const Version& Right)
 {
 	return Left.versionNumbers < Right.versionNumbers;
 }
+
+
+ostream& operator<<(ostream& os, const Version& Right)
+{
+	for(size_t i = 0; i < Right.versionNumbers.size();i++)
+	{
+		os << Right.versionNumbers[i] << Right.seperators[i];
+	}
+	return os;
+}

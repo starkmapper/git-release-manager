@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <string>
+#include <ostream>
 using namespace std;
 class Version
 {
@@ -20,7 +21,9 @@ public:
 	friend bool operator!=(const Version& Left, const Version& Right);
 	friend bool operator>(const Version& Left, const Version& Right);
 	friend bool operator>=(const Version& Left, const Version& Right);
-	friend bool operator<(const Version& Left, const Version& Right);;
+	friend bool operator<(const Version& Left, const Version& Right);
 	friend bool operator<=(const Version& Left, const Version& Right);
+	
+	friend ostream& operator<<(ostream& os, const Version& Right);
 };
 
