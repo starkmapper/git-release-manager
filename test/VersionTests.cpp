@@ -4,15 +4,41 @@
 #include <vector>
 #include <algorithm>
 #include <functional>
-#define THROW_IF_EQUAL(A,B) if (A==B) throw(BaseExceptions::FileLineException("VersionTest failed",__FILE__,__LINE__))
-#define THROW_IF_UNEQUAL(A,B) if (A!=B) throw(BaseExceptions::FileLineException("VersionTest failed",__FILE__,__LINE__))
-#define THROW_IF_NOTEQUAL(A,B) if (!(A==B)) throw(BaseExceptions::FileLineException("VersionTest failed",__FILE__,__LINE__))
+#include <sstream>
+#include "to_string.hpp"
 
+#define THROW_IF_EQUAL(A,B) if (A==B) throw(BaseExceptions::FileLineException("VersionTest failed\n"+to_string(A)+"\t==\t"+to_string(B),__FILE__,__LINE__))
+#define THROW_IF_UNEQUAL(A,B) if (A!=B) throw(BaseExceptions::FileLineException("VersionTest failed\n"+to_string(A)+"\t!=\t"+to_string(B),__FILE__,__LINE__))
+#define THROW_IF_NOTEQUAL(A,B) if (!(A==B)) throw(BaseExceptions::FileLineException("VersionTest failed\n"+to_string(A)+"\tNOT ==\t"+to_string(B),__FILE__,__LINE__))
 VersionTests::VersionTests()
 {
+	InitTestData();
 	TestEquals();
 	TestConstructor();
 	TestGreaterLess();
+	TestToString();
+}
+void VersionTests::InitTestData()
+{
+	numericalVersions.emplace_back(initializer_list<int>{1});
+	stringVersions.emplace_back("1.0.0");
+
+	numericalVersions.emplace_back(initializer_list<int>{21, 22, 23, 24});
+	stringVersions.emplace_back( "21.22.23.24" );
+
+	numericalVersions.emplace_back(initializer_list<int>{1, 2, 3, 4, 123, 15});
+	stringVersions.emplace_back("1/2-3.4_123+15");
+
+
+	numericalVersions.emplace_back(initializer_list<int>{ 15, 9, 3, 18, 3 });
+	stringVersions.emplace_back( "release/15.9/3.18-3" );
+
+	numericalVersions.emplace_back(initializer_list<int>{ 1, 2, 3 });
+	stringVersions.emplace_back( "1.2.3-killmenow" );
+
+	numericalVersions.emplace_back(initializer_list<int>{ 1, 2, 3, 4, 123 });
+	stringVersions.emplace_back( "1.2.3.4-123-ac1337ff" );
+
 }
 void VersionTests::TestEquals()
 {
@@ -27,30 +53,14 @@ void VersionTests::TestEquals()
 }
 void VersionTests::TestConstructor()
 {
+	for(int i = 0; i < numericalVersions.size();++i)
+		THROW_IF_UNEQUAL(numericalVersions[i], stringVersions[i]);
+}
 
-	Version SingleNumeric{ 1 };
-	Version bareSingleString{ "1" };
-	THROW_IF_UNEQUAL(SingleNumeric, bareSingleString);
-
-	Version numeric{ 21, 22, 23, 24 };
-	Version bareString{ "21.22.23.24" };
-	THROW_IF_UNEQUAL(numeric, bareString);
-
-	Version seperated{ 1, 2, 3, 4, 123, 15 };
-	Version seperatedString{ "1/2-3.4_123+15" };
-	THROW_IF_UNEQUAL(seperated, seperatedString);
-
-	Version prefixed{ 15, 9, 3, 18, 3 };
-	Version prefixedString{ "release/15.9/3.18-3" };
-	THROW_IF_UNEQUAL(prefixed, prefixedString);
-
-	Version postfixed{ 1, 2, 3 };
-	Version postfixedString{ "1.2.3-killmenow" };
-	THROW_IF_UNEQUAL(postfixed, postfixedString);
-
-	Version gitDescribe{ 1, 2, 3, 4, 123 };
-	Version gitDescribeString{ "1.2.3.4-123-ac1337ff" };
-	THROW_IF_UNEQUAL(gitDescribe, gitDescribeString);
+void VersionTests::TestToString()
+{
+	for(string &versionString : stringVersions)
+		THROW_IF_UNEQUAL(to_string(Version(versionString)),versionString);
 }
 
 void VersionTests::TestGreaterLess()
