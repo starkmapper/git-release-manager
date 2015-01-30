@@ -5,14 +5,18 @@ CPPFLAGS=-g -Wall -std=c++11 -I $(CPPINCLUDES)
 LDFLAGS=-g
 LDLIBS=
 LIB_SOURCES=lib/FileLineException.cpp  lib/Version.cpp lib/GitVersionRefs.cpp
-TEST_SOURCES=test/test.cpp test/VersionTests.cpp test/TestGitVersionRefs.cpp
-SOURCES=$(LIB_SOURCES) $(TEST_SOURCES)
-
 LIB_OBJECTS=$(subst .cpp,.o,$(LIB_SOURCES))
-TEST_OBJECTS=$(subst .cpp,.o,$(TEST_SOURCES))
-OBJECTS=$(LIB_OBJECTS) $(TEST_OBJECTS)
 
-all: test
+TEST_SOURCES=test/test.cpp test/VersionTests.cpp test/TestGitVersionRefs.cpp
+TEST_OBJECTS=$(subst .cpp,.o,$(TEST_SOURCES))
+
+HOTFIX_SOURCES=app/git-hotfix.cpp
+HOTFIX_OBJECTS=$(subst .cpp,.o,$(HOTFIX_SOURCES))
+
+SOURCES=$(LIB_SOURCES) $(TEST_SOURCES) $(HOTFIX_SOURCES)
+OBJECTS=$(LIB_OBJECTS) $(TEST_OBJECTS) $(HOTFIX_OBJECTS)
+
+all: test git-hotfix
 
 depend: .depend
 
@@ -23,6 +27,9 @@ depend: .depend
 test: lib $(TEST_OBJECTS)
 	$(CXX) $(LDFLAGS) -o tests $(LIB_OBJECTS) $(TEST_OBJECTS) $(LDLIBS)
 
+git-hotfix: lib $(HOTFIX_OBJECTS)
+	$(CXX) $(LDFLAGS) -o git-hotfix $(LIB_OBJECTS) $(HOTFIX_OBJECTS) $(LDLIBS)
+
 lib: $(LIB_OBJECTS)
 	
 clean:
@@ -30,6 +37,7 @@ clean:
 
 dist-clean: clean clean-depend
 	rm -f tests
+	rm -f git-hotfix
 
 clean-depend:
 	rm -f ./.depend

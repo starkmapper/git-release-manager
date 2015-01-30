@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include "Version.h"
+#include <ostream>
 
 class GitVersionRefs
 {
@@ -12,6 +13,7 @@ public:
 	{
 		return refs;
 	}
+	friend ostream& operator<<(ostream& os, const GitVersionRefs& refs);
 private:
 	std::vector<Version> refs;
 

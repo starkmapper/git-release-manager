@@ -2,6 +2,7 @@
 #include "FileLineException.h"
 #include <cstdlib>
 #include <fstream>
+#include "to_string.hpp"
 using namespace std;
 // RAII FTW!
 class tempFile {
@@ -65,3 +66,9 @@ GitVersionRefs::GitVersionRefs()
 GitVersionRefs::~GitVersionRefs()
 {
 }
+ostream& operator<<(ostream& os, const GitVersionRefs& refs)
+{
+	os << refs.refs << endl;
+	return os;
+}
+
