@@ -10,12 +10,12 @@ std::string to_string(const T &ver)
 	os << ver;
 	return os.str();
 }
-template<class C>
-std::ostream& operator<<(std::ostream& os, const C &c)
+template<typename C>
+std::ostream& operator<<(std::ostream& os, const vector<C> &c)
 {
 	if(c.size() > 0)
 	{
-		std::ostream_iterator<typename C::value_type> stream_iterator(os,"\n");
+		std::ostream_iterator<C> stream_iterator(os,"\n");
 		std::copy(c.cbegin(),c.cend()-1, stream_iterator);
 		os << *c.rbegin();
 	}
