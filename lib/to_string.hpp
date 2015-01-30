@@ -2,6 +2,7 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include <iterator>
 template <typename T>
 std::string to_string(const T &ver)
 {
@@ -9,10 +10,15 @@ std::string to_string(const T &ver)
 	os << ver;
 	return os.str();
 }
-template<typename T>
-std::ostream& operator<<(std::ostream& os, const std::vector<T> v)
+template<class C>
+std::ostream& operator<<(std::ostream& os, const C &c)
 {
-	for(const T& in: v)
-		os << in << endl;
+	if(c.size() > 0)
+	{
+		std::ostream_iterator<typename C::value_type> stream_iterator(os,"\n");
+		std::copy(c.cbegin(),c.cend()-1, stream_iterator);
+		os << *c.rend();
+	}
+	
 	return os;
 }
