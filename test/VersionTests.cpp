@@ -22,22 +22,28 @@ void VersionTests::InitTestData()
 {
 	numericalVersions.emplace_back(initializer_list<int>{1});
 	stringVersions.emplace_back("1.0.0");
+	versionStrings.push_back(stringVersions.back());
 
 	numericalVersions.emplace_back(initializer_list<int>{21, 22, 23, 24});
 	stringVersions.emplace_back( "21.22.23.24" );
+	versionStrings.push_back(stringVersions.back());
 
 	numericalVersions.emplace_back(initializer_list<int>{1, 2, 3, 4, 123, 15});
 	stringVersions.emplace_back("1/2-3.4_123+15");
+	versionStrings.push_back(stringVersions.back());
 
 
 	numericalVersions.emplace_back(initializer_list<int>{ 15, 9, 3, 18, 3 });
 	stringVersions.emplace_back( "release/15.9/3.18-3" );
+	versionStrings.push_back("15.9/3.18-3");
 
 	numericalVersions.emplace_back(initializer_list<int>{ 1, 2, 3 });
 	stringVersions.emplace_back( "1.2.3-killmenow" );
+	versionStrings.push_back("1.2.3");
 
 	numericalVersions.emplace_back(initializer_list<int>{ 1, 2, 3, 4, 123 });
 	stringVersions.emplace_back( "1.2.3.4-123-ac1337ff" );
+	versionStrings.push_back("1.2.3.4-123");
 
 }
 void VersionTests::TestEquals()
@@ -59,8 +65,8 @@ void VersionTests::TestConstructor()
 
 void VersionTests::TestToString()
 {
-	for(string &versionString : stringVersions)
-		THROW_IF_UNEQUAL(to_string(Version(versionString)),versionString);
+	for(int i = 0; i < numericalVersions.size();++i)
+		THROW_IF_UNEQUAL(to_string(Version(stringVersions[i])),versionStrings[i]);
 }
 
 void VersionTests::TestGreaterLess()

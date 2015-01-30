@@ -13,5 +13,6 @@ public:
 private:
 	vector<Version> numericalVersions;
 	vector<std::string>  stringVersions;
+	vector<std::string>  versionStrings;
 };
 
