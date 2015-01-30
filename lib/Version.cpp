@@ -105,9 +105,15 @@ bool operator<=(const Version& Left, const Version& Right)
 
 ostream& operator<<(ostream& os, const Version& Right)
 {
-	for(size_t i = 0; i < Right.versionNumbers.size();i++)
-	{
-		os << Right.versionNumbers[i] << Right.seperators[i];
-	}
+	const vector<int> &versionNumbers = Right.versionNumbers;
+	const vector<string> &seperators = Right.seperators;
+	vector<int>::const_iterator number = versionNumbers.cbegin();
+	vector<string>::const_iterator seperator = seperators.cbegin();
+	while (number != versionNumbers.cend())
+		os << *number++ << *seperator++;
+
+	while (seperator != seperators.cend())
+		os << 0 << *seperator++;
+
 	return os;
 }
