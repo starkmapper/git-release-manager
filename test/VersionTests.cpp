@@ -19,6 +19,7 @@ VersionTests::VersionTests()
 	TestConstructor();
 	TestGreaterLess();
 	TestToString();
+	TestDemotion();
 }
 void VersionTests::InitTestData()
 {
@@ -99,5 +100,14 @@ void VersionTests::TestGreaterLess()
 	reverse(begin(sorted),end(sorted));
 	sort(c.begin(), c.end(), greater<Version>());
 	THROW_IF_UNEQUAL(sorted, c);
+}
+void VersionTests::TestDemotion()
+{
+	Version crazyManyVersionComponents{"1.2.3.4.5.6.7.8.9.0"};
+	Version DemotedVersion{1,2,3,4};
+	int  = 6;
+	while(--i)
+		crazyManyVersionComponents.demote()
 
+	THROW_IF_UNEQUAL(crazyManyVersionComponents,DemotedVersion);
 }

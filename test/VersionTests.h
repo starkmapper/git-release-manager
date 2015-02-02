@@ -10,6 +10,7 @@ public:
 	void TestConstructor();
 	void TestGreaterLess();
 	void TestToString();
+	void TestDemotion();
 private:
 	vector<Version> numericalVersions;
 	vector<std::string>  stringVersions;
