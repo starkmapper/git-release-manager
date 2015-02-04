@@ -12,6 +12,10 @@ public:
 	Version(initializer_list<int>);
 	/// Create a Version object from a string
 	Version(const string&);
+	/// Removes the last version element
+	void demote();
+	/// Adds an extra 0
+	void promote();
 private:
 	void normalizeVersionNumber();
 	void normalizeSeperators();

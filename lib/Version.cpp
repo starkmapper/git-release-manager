@@ -105,6 +105,21 @@ void Version::normalizeVersionNumber()
 		versionNumbers.pop_back();
 }
 
+void Version::demote()
+{
+	if(versionNumbers.size() == seperators.size())
+		versionNumbers.pop_back();
+	seperators.pop_back();
+	normalizeSeperators();
+}
+
+void Version::promote()
+{
+	seperators.pop_back();
+	seperators.push_back(".");
+	normalizeSeperators();
+}
+
 bool operator==(const Version& Left, const Version& Right)
 {
 	return Left.versionNumbers == Right.versionNumbers;
@@ -147,3 +162,4 @@ ostream& operator<<(ostream& os, const Version& Right)
 
 	return os;
 }
+
