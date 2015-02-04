@@ -13,10 +13,13 @@ TEST_OBJECTS=$(subst .cpp,.o,$(TEST_SOURCES))
 HOTFIX_SOURCES=app/git-hotfix.cpp
 HOTFIX_OBJECTS=$(subst .cpp,.o,$(HOTFIX_SOURCES))
 
-SOURCES=$(LIB_SOURCES) $(TEST_SOURCES) $(HOTFIX_SOURCES)
-OBJECTS=$(LIB_OBJECTS) $(TEST_OBJECTS) $(HOTFIX_OBJECTS)
+RELEASE_SOURCES=app/git-release.cpp
+RELEASE_OBJECTS=$(subst .cpp,.o,$(RELEASE_SOURCES))
 
-all: test git-hotfix
+SOURCES=$(LIB_SOURCES) $(TEST_SOURCES) $(HOTFIX_SOURCES) $(RELEASE_SOURCES)
+OBJECTS=$(LIB_OBJECTS) $(TEST_OBJECTS) $(HOTFIX_OBJECTS) $(RELEASE_OBJECTS)
+
+all: test git-hotfix git-release
 
 depend: .depend
 
@@ -29,6 +32,9 @@ test: lib $(TEST_OBJECTS)
 
 git-hotfix: lib $(HOTFIX_OBJECTS)
 	$(CXX) $(LDFLAGS) -o git-hotfix $(LIB_OBJECTS) $(HOTFIX_OBJECTS) $(LDLIBS)
+
+git-release: lib $(RELEASE_OBJECTS)
+	$(CXX) $(LDFLAGS) -o git-release $(LIB_OBJECTS) $(RELEASE_OBJECTS) $(LDLIBS)
 
 lib: $(LIB_OBJECTS)
 	

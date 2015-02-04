@@ -3,19 +3,22 @@
 #include <vector>
 #include "Version.h"
 #include <ostream>
-
+typedef std::vector<Version> VersionRefList;
 class GitVersionRefs
 {
 public:
 	GitVersionRefs();
 	virtual ~GitVersionRefs();
-	const std::vector<Version> getRefs()
+	/// Demotes all the refs in the list.
+	void demote();
+	/// Allows direct (read-only) access to the list of VersionRefs
+	const VersionRefList getRefs()
 	{
 		return refs;
 	}
 	friend ostream& operator<<(ostream& os, const GitVersionRefs& refs);
 private:
-	std::vector<Version> refs;
+	VersionRefList refs;
 
 };
 

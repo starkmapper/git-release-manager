@@ -62,6 +62,11 @@ GitVersionRefs::GitVersionRefs()
 
 }
 
+void GitVersionRefs::demote()
+{
+	for (Version& version: refs)
+		version.demote();
+}
 
 GitVersionRefs::~GitVersionRefs()
 {
