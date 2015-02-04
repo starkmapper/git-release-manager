@@ -8,6 +8,15 @@ using namespace std;
 Version::Version()
 {
 }
+/**
+ * Initializes the Version object with the version elements provided, using a "." as seperator.
+ * @code
+ * Version someVer{1,2,3,4}; // Creates version 1.2.3.4
+ * @endcode
+ * 
+ * @param[in] Args Comma seperated list of version elements
+ * 
+ */
 Version::Version(initializer_list<int> Args)
 {
 	for (int versionPart : Args)
@@ -19,6 +28,17 @@ Version::Version(initializer_list<int> Args)
 	normalizeSeperators();
 	
 }
+/**
+ * Initializes the version object using a version string, formatted with supported seperators. 
+ * The longest substring matching only numbers an seperators is used to extract the versio information.
+ * Prefix and suffix are ignored, but stored for now. This will most likely prove to be useless, so don't count on it.
+ * 
+ * Supported seperators are: -._+/
+ * @code
+ * Version stringVersion("1.2/3-4") // Creates version 1.2.3.4 whilst preserving seperators
+ *   
+ * @param[in] versionString Formatted version string
+ */
 Version::Version(const string &versionString)
 {
 	// Don't accept empty version

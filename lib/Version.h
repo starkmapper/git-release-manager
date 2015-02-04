@@ -3,11 +3,14 @@
 #include <string>
 #include <ostream>
 using namespace std;
+/// Holds version information
 class Version
 {
 public:
 	Version();
+	/// Create a version object using int list
 	Version(initializer_list<int>);
+	/// Create a Version object from a string
 	Version(const string&);
 private:
 	void normalizeVersionNumber();
