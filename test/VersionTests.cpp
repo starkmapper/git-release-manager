@@ -104,10 +104,10 @@ void VersionTests::TestGreaterLess()
 void VersionTests::TestDemotion()
 {
 	Version crazyManyVersionComponents{"1.2.3.4.5.6.7.8.9.0"};
-	Version DemotedVersion{1,2,3,4};
-	int  = 6;
+	Version DemotedVersion{1,2,3,4,5};
+	int i = 6;
 	while(--i)
-		crazyManyVersionComponents.demote()
+		crazyManyVersionComponents.demote();
 
 	THROW_IF_UNEQUAL(crazyManyVersionComponents,DemotedVersion);
 }
