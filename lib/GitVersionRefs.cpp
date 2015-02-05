@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <fstream>
 #include "to_string.hpp"
+#include <algorithm>
 using namespace std;
 // RAII FTW!
 class tempFile {
@@ -51,7 +52,7 @@ GitVersionRefs::GitVersionRefs()
 			{
 				try
 				{
-					refs.push_back(line);
+					refs.emplace_back(line);
 				}
 				catch (...){}
 			}
@@ -66,6 +67,9 @@ void GitVersionRefs::demote()
 {
 	for (Version& version: refs)
 		version.demote();
+
+	VersionRefList::iterator newEnd = unique(refs.begin(), refs.end());
+	refs.erase(newEnd, refs.end());
 }
 
 GitVersionRefs::~GitVersionRefs()
