@@ -10,6 +10,7 @@ std::string to_string(const T &ver)
 	os << ver;
 	return os.str();
 }
+/// Prints set container types to stdout, every element on a new line
 template<typename C>
 std::ostream& operator<<(std::ostream& os, const vector<C> &c)
 {

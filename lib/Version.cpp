@@ -36,7 +36,7 @@ Version::Version(initializer_list<int> Args)
  * Supported seperators are: -._+/
  * @code
  * Version stringVersion("1.2/3-4") // Creates version 1.2.3.4 whilst preserving seperators
- *   
+ * @encode  
  * @param[in] versionString Formatted version string
  */
 Version::Version(const string &versionString)
