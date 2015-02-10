@@ -41,9 +41,13 @@ lib: $(LIB_OBJECTS)
 clean:
 	rm -f $(OBJECTS)
 
-dist-clean: clean clean-depend
+dist-clean: clean clean-depend clean-doc
 	rm -f tests
 	rm -f git-hotfix
+	rm -f git-release
+
+clean-doc:
+	rm -rf doc/
 
 clean-depend:
 	rm -f ./.depend
