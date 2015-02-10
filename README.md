@@ -8,7 +8,8 @@ GRM allows you to auto increment version numbers and, providing branch naming is
 
 Wat does it do?
 --------------------
-- uuhhm... nothing yet..
+- git-hotfix lists all current release tags
+- git-release lists all release paths
 
 Wat it will do?
 ------------------
@@ -78,11 +79,12 @@ Implemented
         - (vector of) integers
         - randomly formatted version string with any prefix or annotation
         - means for natural sorting (i.e. 1.2 < 1.2.1 and 1.20 > 1.2.1)
+- read release tags 
 
 To implement
 ---------------------
 
-- read version tags/branches 
+- read release/hotfix branches 
 - call git-flow appropriately
 - detect unfinished releases/hotfixes
 - bring in Gandalf
