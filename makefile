@@ -21,6 +21,9 @@ OBJECTS=$(LIB_OBJECTS) $(TEST_OBJECTS) $(HOTFIX_OBJECTS) $(RELEASE_OBJECTS)
 
 all: test git-hotfix git-release
 
+doc: $(SOURCES)
+	doxygen
+
 depend: .depend
 
 .depend: $(SOURCES)
