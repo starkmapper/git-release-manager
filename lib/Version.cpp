@@ -116,13 +116,14 @@ void Version::promote()
 {
 	seperators.pop_back();
 	seperators.push_back(".");
+	seperators.push_back(".");
 	normalizeSeperators();
 }
 
 void Version::increment()
 {
 	// Re-add trailing zero's
-	while(versionNumbers.size() <= seperators.size())
+	while(versionNumbers.size() < seperators.size())
 		versionNumbers.push_back(0);
 	// increment lease significant version element
 	++versionNumbers.back();
