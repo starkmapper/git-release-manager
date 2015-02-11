@@ -18,8 +18,10 @@ public:
 	}
 	/// Returns the highest version number
 	Version getLatest();
+	/// Returns the highest version number for a specific release version
+	Version getLatest(const Version& release);
 	friend ostream& operator<<(ostream& os, const GitVersionRefs& refs);
-private:
+protected:
 	VersionRefList refs;
 
 };

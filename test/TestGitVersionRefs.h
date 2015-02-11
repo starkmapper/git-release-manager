@@ -6,7 +6,10 @@ class TestGitVersionRefs
 public:
 	TestGitVersionRefs();
 	~TestGitVersionRefs();
+	void initTestData();
 	void testTags();
+	void testGetLatest();
+
 private:
 	vector<Version> testRefs;
 };

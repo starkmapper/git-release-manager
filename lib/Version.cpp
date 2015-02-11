@@ -121,7 +121,11 @@ void Version::promote()
 
 void Version::increment()
 {
-	++(*versionNumbers.rbegin());
+	// Re-add trailing zero's
+	while(versionNumbers.size() <= seperators.size())
+		versionNumbers.push_back(0);
+	// increment lease significant version element
+	++versionNumbers.back();
 }
 
 Version& Version::operator++()
