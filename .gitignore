@@ -37,3 +37,7 @@
 *.sdf
 *.suo
 *.res
+
+#backup files
+*.orig
+*~
