@@ -20,16 +20,17 @@ public:
 using namespace std;
 /**
  * Uses system() from the C std lib to execute the command, and redirects it to a temporary file.
- * 
- * @param[in] command Commandline to execute
- * @return Vector of strings, one per line output by executing the command
+ *
+ * @param[in] inCommand Commandline to execute
+ * @return Vector of strings, one per line of output by executing the command
  */
-vector<string> ExecuteCommand(string command)
+vector<string> ExecuteCommand(const string& inCommand)
 {
 	vector<string> refs;
 	if (system(NULL))
 	{
 		tempFile tmp;
+		string command = inCommand;
 		command += " >> ";
 		command += tmp.name;
 		int return_value = system(command.c_str());
@@ -45,7 +46,7 @@ vector<string> ExecuteCommand(string command)
 		if (return_value != 0)
 		{
 			string errorMessage = "Error executing command: \"";
-			errorMessage += command + "\"";
+			errorMessage += inCommand + "\"";
 			for (string& line : refStrings)
 				errorMessage += line + "\n";
 			throw (FileLineExceptionMessage(errorMessage));

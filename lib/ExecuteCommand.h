@@ -2,4 +2,4 @@
 #include <vector>
 #include <string>
 /// Execute the provided command string and return stdout results
-std::vector<std::string> ExecuteCommand(std::string command);
+std::vector<std::string> ExecuteCommand(const std::string& command);
