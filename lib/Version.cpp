@@ -124,6 +124,19 @@ void Version::increment()
 	++(*versionNumbers.rbegin());
 }
 
+Version& Version::operator++()
+{
+	increment();
+	return *this;
+}
+
+Version Version::operator++(int)
+{
+	Version out = *this;
+	increment();
+	return out;
+}
+
 bool operator==(const Version& Left, const Version& Right)
 {
 	return Left.versionNumbers == Right.versionNumbers;
