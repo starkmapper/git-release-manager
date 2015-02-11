@@ -1,67 +1,23 @@
 #include "GitVersionRefs.h"
 #include "FileLineException.h"
-#include <cstdlib>
-#include <fstream>
+#include "ExecuteCommand.h"
 #include "to_string.hpp"
 #include <algorithm>
+
 using namespace std;
-// RAII FTW!
-class tempFile
-{
-public:
-	tempFile()
-	{
-		tmpnam(name);
-	}
-	~tempFile()
-	{
-		remove(name);
-	}
-	char name[L_tmpnam];
-
-};
-
 GitVersionRefs::GitVersionRefs()
 {
-
-	if (system(NULL))
+	vector<string> tagStrings = ExecuteCommand("git tag");
+	for (auto& tag : tagStrings)
 	{
-		tempFile tmp;
-		string command = "git tag >> ";
-		command += tmp.name;
-		int return_value = system(command.c_str());
-
-		ifstream resultFile(tmp.name, ios::in);
-		string line;
-		std::vector<std::string> refStrings;
-		while (!resultFile.eof())
+		try
 		{
-			getline(resultFile, line);
-			refStrings.push_back(move(line));
+			refs.emplace_back(tag);
 		}
-		if (return_value != 0)
-		{
-			string errorMessage = "Error executing command: \"";
-			errorMessage += command + "\"";
-			for (string& line : refStrings)
-				errorMessage += line + "\n";
-			throw (FileLineExceptionMessage(errorMessage));
-		}
-		else
-		{
-			for (string& line : refStrings)
-			{
-				try
-				{
-					refs.emplace_back(line);
-				}
-				catch (...) {}
-			}
+		catch (exception& e)
+		{ // not every line is an actual version string
 		}
 	}
-	else
-		throw (FileLineExceptionMessage("No command processor available!"));
-
 }
 
 void GitVersionRefs::demote()
