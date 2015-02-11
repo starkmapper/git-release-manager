@@ -6,7 +6,8 @@
 #include <algorithm>
 using namespace std;
 // RAII FTW!
-class tempFile {
+class tempFile
+{
 public:
 	tempFile()
 	{
@@ -17,7 +18,7 @@ public:
 		remove(name);
 	}
 	char name[L_tmpnam];
-	
+
 };
 
 GitVersionRefs::GitVersionRefs()
@@ -42,9 +43,9 @@ GitVersionRefs::GitVersionRefs()
 		{
 			string errorMessage = "Error executing command: \"";
 			errorMessage += command + "\"";
-			for (string &line : refStrings)
+			for (string& line : refStrings)
 				errorMessage += line + "\n";
-			throw(FileLineExceptionMessage(errorMessage));
+			throw (FileLineExceptionMessage(errorMessage));
 		}
 		else
 		{
@@ -54,18 +55,18 @@ GitVersionRefs::GitVersionRefs()
 				{
 					refs.emplace_back(line);
 				}
-				catch (...){}
+				catch (...) {}
 			}
 		}
 	}
 	else
-		throw(FileLineExceptionMessage("No command processor available!"));
+		throw (FileLineExceptionMessage("No command processor available!"));
 
 }
 
 void GitVersionRefs::demote()
 {
-	for (Version& version: refs)
+	for (Version& version : refs)
 		version.demote();
 
 	VersionRefList::iterator newEnd = unique(refs.begin(), refs.end());

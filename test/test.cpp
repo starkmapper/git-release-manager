@@ -11,11 +11,11 @@ int main(void)
 		VersionTests TestVersions;
 		TestGitVersionRefs gitRefs;
 	}
-	catch (exception &e)
+	catch (exception& e)
 	{
-		cerr << "Test failed!" << endl << e.what()<< endl;
+		cerr << "Test failed!" << endl << e.what() << endl;
 		return EXIT_FAILURE;
 	}
-	
+
 	return EXIT_SUCCESS;
 }

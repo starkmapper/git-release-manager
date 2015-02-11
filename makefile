@@ -2,7 +2,7 @@ CC=clang
 CXX=clang++
 CPPINCLUDES=lib
 CPPFLAGS=-g -Wall -std=c++11 -I $(CPPINCLUDES)
-LDFLAGS=-g
+LDFLAGS=-g -lboost_program_options
 LDLIBS=
 LIB_SOURCES=lib/FileLineException.cpp  lib/Version.cpp lib/GitVersionRefs.cpp
 LIB_OBJECTS=$(subst .cpp,.o,$(LIB_SOURCES))

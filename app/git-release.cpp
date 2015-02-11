@@ -5,6 +5,6 @@ int main(void)
 {
 	GitVersionRefs refs;
 	refs.demote();
-	cout<<refs;
+	cout << refs;
 }
 

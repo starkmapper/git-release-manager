@@ -31,7 +31,7 @@ public:
 	friend bool operator>=(const Version& Left, const Version& Right);
 	friend bool operator<(const Version& Left, const Version& Right);
 	friend bool operator<=(const Version& Left, const Version& Right);
-	
+
 	friend ostream& operator<<(ostream& os, const Version& Right);
 };
 

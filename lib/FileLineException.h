@@ -8,14 +8,14 @@ namespace BaseExceptions
 	class FileLineException : public exception
 	{
 	protected:
-		FileLineException(){};
+		FileLineException() {};
 		int line;
 		string file;
 		string message;
 
 	public:
 		FileLineException(string message, string file, int line);
-		virtual ~FileLineException(){};
+		virtual ~FileLineException() {};
 		virtual const char* what() const noexcept;
 	};
 
