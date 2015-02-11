@@ -1,0 +1,19 @@
+# Opening and closing brackets on newlines
+--style=allman
+# Use tab as indent, and spaces for line continuation 
+--indent=tab
+
+--indent-switches
+--indent-namespaces
+--indent-labels
+#--indent-preproc-block
+# Pad operators
+--pad-oper
+# Add space after if/for/while
+--pad-header
+# Remove padding of ( and ) like ( void ) becomes (void)
+--unpad-paren
+
+# Align * en & to the type rather than the variable name
+--align-pointer=type
+--align-reference=type
