@@ -1,7 +1,9 @@
 #pragma once
 #include "Version.h"
-namespace Hotfix
+/// Hotfix commands for git-flow
+class Hotfix
 {
+public:
 	/// Call git flow start hotfix using the specified version
-	void start(Version in);
-}
+	static void start(Version in);
+};
