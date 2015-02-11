@@ -4,7 +4,7 @@ CPPINCLUDES=lib
 CPPFLAGS=-g -Wall -std=c++11 -I $(CPPINCLUDES)
 LDFLAGS=-g -lboost_program_options
 LDLIBS=
-LIB_SOURCES=lib/FileLineException.cpp  lib/Version.cpp lib/GitVersionRefs.cpp lib/ExecuteCommand.cpp
+LIB_SOURCES=lib/FileLineException.cpp  lib/Version.cpp lib/GitVersionRefs.cpp lib/ExecuteCommand.cpp lib/GitFlowHelpers.cpp
 LIB_OBJECTS=$(subst .cpp,.o,$(LIB_SOURCES))
 
 TEST_SOURCES=test/test.cpp test/VersionTests.cpp test/TestGitVersionRefs.cpp

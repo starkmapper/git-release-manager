@@ -26,7 +26,6 @@ Version::Version(initializer_list<int> Args)
 	}
 	normalizeVersionNumber();
 	normalizeSeperators();
-
 }
 /**
  * Initializes the version object using a version string, formatted with supported seperators.
@@ -118,6 +117,11 @@ void Version::promote()
 	seperators.pop_back();
 	seperators.push_back(".");
 	normalizeSeperators();
+}
+
+void Version::increment()
+{
+	++(*versionNumbers.rbegin());
 }
 
 bool operator==(const Version& Left, const Version& Right)

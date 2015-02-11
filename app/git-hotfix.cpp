@@ -1,8 +1,9 @@
 #include <iostream>
 #include "GitVersionRefs.h"
 #include "NotImplementedException.h"
+#include "ExecuteCommand.h"
 #include <boost/program_options.hpp>
-
+#include "GitFlowHelpers.h"
 namespace po = boost::program_options;
 using namespace std;
 int main(int ac, char* av[])
@@ -18,9 +19,9 @@ int main(int ac, char* av[])
 		po::store(po::parse_command_line(ac, av, desc), vars);
 		po::notify(vars);
 
+		GitVersionRefs refs;
 		if (vars.size() == 0)
 		{
-			GitVersionRefs refs;
 			cout << refs;
 			return 0;
 		}
@@ -31,7 +32,9 @@ int main(int ac, char* av[])
 		}
 		if (vars.count("auto"))
 		{
-			throw NOT_IMLEMENTED_YET();
+			Version hotfix = refs.getLatest();
+			hotfix.increment();
+			Hotfix::start(hotfix);
 		}
 	}
 	catch (po::unknown_option)

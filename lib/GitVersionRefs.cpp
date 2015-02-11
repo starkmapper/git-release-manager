@@ -15,9 +15,11 @@ GitVersionRefs::GitVersionRefs()
 			refs.emplace_back(tag);
 		}
 		catch (exception& e)
-		{ // not every line is an actual version string
+		{
+			// not every line is an actual version string
 		}
 	}
+	sort(refs.begin(), refs.end());
 }
 
 void GitVersionRefs::demote()
@@ -31,6 +33,11 @@ void GitVersionRefs::demote()
 
 GitVersionRefs::~GitVersionRefs()
 {
+}
+
+Version GitVersionRefs::getLatest()
+{
+	return *refs.crbegin();
 }
 ostream& operator<<(ostream& os, const GitVersionRefs& refs)
 {

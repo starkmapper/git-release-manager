@@ -16,6 +16,8 @@ public:
 	{
 		return refs;
 	}
+	/// Returns the highest version number
+	Version getLatest();
 	friend ostream& operator<<(ostream& os, const GitVersionRefs& refs);
 private:
 	VersionRefList refs;

@@ -16,6 +16,8 @@ public:
 	void demote();
 	/// Adds an extra 0
 	void promote();
+	/// Increments the least-significant version element
+	void increment();
 private:
 	void normalizeVersionNumber();
 	void normalizeSeperators();
