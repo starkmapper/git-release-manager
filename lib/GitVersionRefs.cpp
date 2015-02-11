@@ -48,11 +48,11 @@ Version GitVersionRefs::getLatest(const Version& release)
 	VersionRefList::iterator HigherVersion = lower_bound(refs.begin(), refs.end(), HighestVersion);
 	// Check if this actually exists
 	// Throw something when it doesn't exist yet
-	if(HigherVersion != refs.end())
-	{
-		HighestVersion =  *(--HigherVersion);
-	}
-	return *refs.crbegin();
+	if(HigherVersion != refs.begin())
+		--HigherVersion;
+	
+	HighestVersion = *HigherVersion;
+	return HighestVersion;
 }
 ostream& operator<<(ostream& os, const GitVersionRefs& refs)
 {
