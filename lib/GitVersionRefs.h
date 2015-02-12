@@ -23,6 +23,7 @@ public:
 	friend ostream& operator<<(ostream& os, const GitVersionRefs& refs);
 protected:
 	VersionRefList refs;
-
+	/// Sorts refs in ascending order and removes duplicates
+	void SortAndDedup();
 };
 

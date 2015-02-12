@@ -19,7 +19,13 @@ GitVersionRefs::GitVersionRefs()
 			// not every line is an actual version string
 		}
 	}
-	sort(refs.begin(), refs.end());
+	SortAndDedup();
+}
+void GitVersionRefs::SortAndDedup()
+{
+	sort(begin(refs), end(refs));
+	VersionRefList::iterator newEnd = unique(refs.begin(), refs.end());
+	refs.erase(newEnd, refs.end());
 }
 
 void GitVersionRefs::demote()
@@ -27,8 +33,8 @@ void GitVersionRefs::demote()
 	for (Version& version : refs)
 		version.demote();
 
-	VersionRefList::iterator newEnd = unique(refs.begin(), refs.end());
-	refs.erase(newEnd, refs.end());
+	SortAndDedup();
+
 }
 
 GitVersionRefs::~GitVersionRefs()
