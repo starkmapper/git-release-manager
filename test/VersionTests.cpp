@@ -53,6 +53,11 @@ void VersionTests::InitTestData()
 	stringVersions.emplace_back("1.2.3.4-123-");
 	versionStrings.push_back("1.2.3.4-123");
 
+	// Test zero padded version elements
+	numericalVersions.emplace_back(initializer_list<int> { 1, 2, 3, 4, 123 });
+	stringVersions.emplace_back("01.02.03.04-00123");
+	versionStrings.push_back("01.02.03.04-00123");
+
 }
 void VersionTests::TestEquals()
 {
