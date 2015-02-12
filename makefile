@@ -19,7 +19,7 @@ RELEASE_OBJECTS=$(subst .cpp,.o,$(RELEASE_SOURCES))
 SOURCES=$(LIB_SOURCES) $(TEST_SOURCES) $(HOTFIX_SOURCES) $(RELEASE_SOURCES)
 OBJECTS=$(LIB_OBJECTS) $(TEST_OBJECTS) $(HOTFIX_OBJECTS) $(RELEASE_OBJECTS)
 
-all: test git-hotfix git-release
+all: test git-hotfix git-release run-tests
 
 doc: $(SOURCES)
 	doxygen
@@ -32,6 +32,9 @@ depend: .depend
 
 test: lib $(TEST_OBJECTS)
 	$(CXX) $(LDFLAGS) -o tests $(LIB_OBJECTS) $(TEST_OBJECTS) $(LDLIBS)
+
+run-tests: test
+	./tests
 
 git-hotfix: lib $(HOTFIX_OBJECTS)
 	$(CXX) $(LDFLAGS) -o git-hotfix $(LIB_OBJECTS) $(HOTFIX_OBJECTS) $(LDLIBS)
