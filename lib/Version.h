@@ -19,9 +19,12 @@ public:
 	/// Increments the least-significant version element
 	void increment();
 private:
+	void normalize();
 	void normalizeVersionNumber();
 	void normalizeSeperators();
+	void normalizeWidth();
 	vector<int> versionNumbers;
+	vector<int> elementWidth;
 	vector<string> seperators;
 	string prefix;
 	string suffix;

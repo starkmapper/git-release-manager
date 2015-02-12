@@ -2,6 +2,7 @@
 #include "FileLineException.h"
 #include <regex>
 #include <sstream>
+#include <iomanip>
 #define VersionException BaseExceptions::FileLineException("Illegal version string: "+versionString,__FILE__, __LINE__)
 #define RethrownVersionException(M) BaseExceptions::FileLineException(M+versionString,__FILE__, __LINE__)
 using namespace std;
@@ -24,8 +25,7 @@ Version::Version(initializer_list<int> Args)
 		versionNumbers.push_back(versionPart);
 		seperators.push_back(".");
 	}
-	normalizeVersionNumber();
-	normalizeSeperators();
+	normalize();
 }
 /**
  * Initializes the version object using a version string, formatted with supported seperators.
@@ -63,7 +63,9 @@ Version::Version(const string& versionString)
 			while (start < stringSize)
 			{
 				size_t end = versionString.find_first_not_of(digits, start);
-				versionNumbers.push_back(stoi(versionString.substr(start, end - start)));
+				string element = versionString.substr(start, end - start);
+				elementWidth.push_back(element.size());
+				versionNumbers.push_back(stoi(element));
 				// continue until no more seperators and digits are found
 				if (end == string::npos)
 				{
@@ -85,10 +87,15 @@ Version::Version(const string& versionString)
 			throw (RethrownVersionException(e.what()));
 		}
 	}
-	normalizeVersionNumber();
-	normalizeSeperators();
+	normalize();
 }
 
+void Version::normalize()
+{
+	normalizeVersionNumber();
+	normalizeSeperators();
+	normalizeWidth();
+}
 void Version::normalizeSeperators()
 {
 	// Set the last seperator to be an empty string
@@ -103,6 +110,11 @@ void Version::normalizeVersionNumber()
 	while (versionNumbers.size() > 1 && versionNumbers.back() == 0)
 		versionNumbers.pop_back();
 }
+void Version::normalizeWidth()
+{
+	while(versionNumbers.size() > elementWidth.size() || seperators.size() > elementWidth.size())
+		elementWidth.push_back(0);
+}
 
 void Version::demote()
 {
@@ -110,6 +122,7 @@ void Version::demote()
 		versionNumbers.pop_back();
 	seperators.pop_back();
 	normalizeSeperators();
+
 }
 
 void Version::promote()
@@ -174,14 +187,20 @@ ostream& operator<<(ostream& os, const Version& Right)
 {
 	const vector<int>& versionNumbers = Right.versionNumbers;
 	const vector<string>& seperators = Right.seperators;
-	vector<int>::const_iterator number = versionNumbers.cbegin();
-	vector<string>::const_iterator seperator = seperators.cbegin();
+	const vector<int>& elementWidth = Right.elementWidth;
+	vector<int>::const_iterator 	number 		= versionNumbers.cbegin();
+	vector<string>::const_iterator	seperator 	= seperators.cbegin();
+	vector<int>::const_iterator		width 		= elementWidth.cbegin();
+	streamsize oldWidth = os.width();
+	char oldFill = os.fill();
+	os.fill('0');
 	while (number != versionNumbers.cend())
-		os << *number++ << *seperator++;
+		os << setw(*width++) << *number++ << setw(oldWidth) << *seperator++;
 
 	while (seperator != seperators.cend())
-		os << 0 << *seperator++;
-
+		os << setw(*width++) << 0 << setw(oldWidth) << *seperator++;
+	os.width(oldWidth);
+	os.fill(oldFill);
 	return os;
 }
 
