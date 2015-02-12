@@ -48,6 +48,11 @@ void VersionTests::InitTestData()
 	stringVersions.emplace_back("1.2.3.4-123-ac1337ff");
 	versionStrings.push_back("1.2.3.4-123");
 
+	// Test last character is a seperator
+	numericalVersions.emplace_back(initializer_list<int> { 1, 2, 3, 4, 123 });
+	stringVersions.emplace_back("1.2.3.4-123-");
+	versionStrings.push_back("1.2.3.4-123");
+
 }
 void VersionTests::TestEquals()
 {
