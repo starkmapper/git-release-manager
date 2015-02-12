@@ -43,47 +43,47 @@ Version::Version(const string& versionString)
 	// Don't accept empty version
 	if (versionString.size() == 0)
 		throw(VersionException);
-	// Find one or more digits with 0 or more trailing characters
-	// Concatenating this string finds anything in the form of 1 1.2.3 or even 1,2.3.27-2a0123[12
-	string digitsString = "([[:digit:]]+)";
-	/* libstdc++ doesn't handle the ^ operator well (appears to turn it into match any)
-	 * string seperatorString = "([^[:digit:]]{1}|$)";
-	 */
-	string seperatorString = "([\\-._+/]{1}|$)";
-	string regexBuilderString = digitsString + seperatorString;
-	string regexString;
-	int nrOfDigits;
+	// helper strings to easy searching
+	string digits = "0123456789";
+	string seperatorsString = "._/+-";
 
-	//find the number of digits
-	for (nrOfDigits = 0; regex_search(versionString, regex(regexString + regexBuilderString), regex_constants::match_not_bol); ++nrOfDigits)
-		regexString += regexBuilderString;
-
-	smatch versionMatch;
-	try
+	//Find the version info
+	size_t start = versionString.find_first_of(digits);
+	// No digits found
+	if (start == string::npos)
 	{
-		if (regex_search(versionString, versionMatch, regex(regexString)))
-		{
-			// First result it the entire matched string
-			smatch::iterator versionResult = versionMatch.begin() + 1;
-
-			while (versionResult != versionMatch.end())
-			{
-				versionNumbers.push_back(stoi(*versionResult));
-				versionResult++;
-				seperators.push_back(*versionResult);
-				versionResult++;
-			}
-			suffix = versionMatch.suffix().str();
-			prefix = versionMatch.prefix().str();
-		}
-		else
-		{
-			throw (VersionException);
-		}
+		throw VersionException;
 	}
-	catch (exception& e)
+	else
 	{
-		throw (RethrownVersionException(e.what()));
+		try
+		{
+			// Basically while not break
+			size_t stringSize = versionString.size();
+			while (start < stringSize)
+			{
+				size_t end = versionString.find_first_not_of(digits, start);
+				versionNumbers.push_back(stoi(versionString.substr(start, end - start)));
+				// continue until no more seperators and digits are found
+				if (end == string::npos)
+				{
+					seperators.push_back("");
+					break;
+				}
+				else if (seperatorsString.find(versionString[end]) != string::npos
+				         && digits.find(versionString[end + 1]) != string::npos) // when end+1 == size() [] operator returns "\0" in c++11 (http://en.cppreference.com/w/cpp/string/basic_string/operator_at)
+				{
+					start = end + 1;
+					seperators.push_back(versionString.substr(end, 1));
+				}
+				else
+					break;
+			}
+		}
+		catch (exception& e)
+		{
+			throw (RethrownVersionException(e.what()));
+		}
 	}
 	normalizeVersionNumber();
 	normalizeSeperators();
@@ -123,7 +123,7 @@ void Version::promote()
 void Version::increment()
 {
 	// Re-add trailing zero's
-	while(versionNumbers.size() < seperators.size())
+	while (versionNumbers.size() < seperators.size())
 		versionNumbers.push_back(0);
 	// increment lease significant version element
 	++versionNumbers.back();
