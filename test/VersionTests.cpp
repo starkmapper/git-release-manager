@@ -31,32 +31,32 @@ void VersionTests::InitTestData()
 	stringVersions.emplace_back("21.22.23.24");
 	versionStrings.push_back(stringVersions.back());
 
-	numericalVersions.emplace_back(initializer_list<int> {1, 2, 3, 4, 123, 15});
+	numericalVersions.emplace_back(initializer_list<int> {1, 2});
 	stringVersions.emplace_back("1/2-3.4_123+15");
-	versionStrings.push_back(stringVersions.back());
+	versionStrings.push_back("1/2");
 
 
-	numericalVersions.emplace_back(initializer_list<int> { 15, 9, 3, 18, 3 });
+	numericalVersions.emplace_back(initializer_list<int> { 15, 9, 3, 18 });
 	stringVersions.emplace_back("release/15.9/3.18-3");
-	versionStrings.push_back("15.9/3.18-3");
+	versionStrings.push_back("15.9/3.18");
 
 	numericalVersions.emplace_back(initializer_list<int> { 1, 2, 3 });
 	stringVersions.emplace_back("1.2.3-killmenow");
 	versionStrings.push_back("1.2.3");
 
-	numericalVersions.emplace_back(initializer_list<int> { 1, 2, 3, 4, 123 });
+	numericalVersions.emplace_back(initializer_list<int> { 1, 2, 3, 4});
 	stringVersions.emplace_back("1.2.3.4-123-ac1337ff");
-	versionStrings.push_back("1.2.3.4-123");
+	versionStrings.push_back("1.2.3.4");
 
 	// Test last character is a seperator
-	numericalVersions.emplace_back(initializer_list<int> { 1, 2, 3, 4, 123 });
-	stringVersions.emplace_back("1.2.3.4-123-");
-	versionStrings.push_back("1.2.3.4-123");
+	numericalVersions.emplace_back(initializer_list<int> { 1, 2, 3, 4, 12});
+	stringVersions.emplace_back("1.2.3.4/12.");
+	versionStrings.push_back("1.2.3.4/12");
 
 	// Test zero padded version elements
 	numericalVersions.emplace_back(initializer_list<int> { 1, 2, 3, 4, 123 });
-	stringVersions.emplace_back("01.02.03.04-00123");
-	versionStrings.push_back("01.02.03.04-00123");
+	stringVersions.emplace_back("01.02.03.04.00123");
+	versionStrings.push_back("01.02.03.04.00123");
 
 }
 void VersionTests::TestEquals()

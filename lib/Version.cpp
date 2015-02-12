@@ -45,7 +45,7 @@ Version::Version(const string& versionString)
 		throw(VersionException);
 	// helper strings to easy searching
 	string digits = "0123456789";
-	string seperatorsString = "._/+-";
+	string seperatorsString = "._/+";
 
 	//Find the version info
 	size_t start = versionString.find_first_of(digits);
